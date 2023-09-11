@@ -1,10 +1,12 @@
 import React, { Fragment,useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import {BsArrowRight,BsArrowLeft} from 'react-icons/bs'
-import {salariedIMG,selfEmployeedIMG,bankTransfer,cash} from '../src/assets/index'
+import {salariedIMG,selfEmployeedIMG,bankTransfer,cash,man,couple} from '../src/assets/index'
+import {MDBInputSelect} from 'mdbreact'
 const ContainerStyler={
   minHeight:"100vh",
-  border:"2px solid red"
+  border:"2px solid red",
+  padding:"20px 0px"
 }
 const ColStyler={
   minHeight:"40vh",
@@ -18,55 +20,88 @@ const ColStyler={
 }
 
 const App = () => {
-   const [formCount,setFormCount]=useState(0);
+  //  const [formCount,setFormCount]=useState(0);
+  /**-------ALL DATE DATA----------------------------------------------------------------------------------- */
+  const [selectedDate, setSelectedDate] = useState('');
+  const handleDateChange = (event) => {
+    const newDate = event.target.value;
+    setSelectedDate(newDate);
+  };
+
+  /**---------------ALL FORMS USESTATE FOR SHOW AND HIDE-------------------------------------------------------------- */
    const [userNumber,setUserNumber]=useState(true);
    const [userVerify,setUserVerify]=useState(false);
    const [userLoan,setUserLoan]=useState(false);
    const [userEmployeeType,setUserEmployeeType]=useState(false);
    const [salaried,setSalaried]=useState(false);
    const [selfEmployeed,setSelfEmployed]=useState(false);
-   /**--------------------------------------------- */
+   const [personalDetails,setPersonalDetails]=useState(false);
+   const [userAddress,setUserAddress]=useState(false);
+   const [otherDetils,setOtherDetails]=useState(false);
+   const [submitLoan,setSubmitLoan]=useState(false);
+   /**-------------------------------------------------------------------------- */
+   const [male,setMale]=useState(false);
+   const [female,setFemale]=useState(false);
+   const [gender,setGender]=useState("");
+   /**--------------------------------------------------------------------------- */
+   const [bank,setBank]=useState(false);
+   const [modecash,setModeCash]=useState(false);
+   const [transfer,setTransfer]=useState("");
+   /**----------------------------------------------------------------------------- */
    const [employeeForm,setEmployeeForm]=useState("");
    const [userSalary,setUserSalary]=useState(false);
    const [userSelfEmployed,setUserSelfEmployed]=useState(false);
-    const userSelected=()=>{
-        if(employeeForm==="salaried"){
-          //  console.log(employeeForm);
-           setUserEmployeeType(false);
-           setUserSalary(true);
-           setUserSelfEmployed(false);
-        }
-        if(employeeForm==="selfemployed"){
-          //  console.log(employeeForm);
-          setUserEmployeeType(false);
-          setUserSelfEmployed(true);
-          setUserSalary(false);
-        }
-    }
-
-   /**---------------------------------------------- */
-   const changeSalariedBg=()=>{
-      setSalaried(true);
-      setSelfEmployed(false);
-      setEmployeeForm("salaried");
-   }
-   const changeSelfEmployeeBg=()=>{
-       setSalaried(false);
-       setSelfEmployed(true);
-       setEmployeeForm("selfemployed");
-   }
+   /**-----------function of getting otp page--------------------------------------- */
    const redirectToVerify=()=>{
        setUserNumber(false);
        setUserVerify(true);
    }
+   /*-*----------function of getting the loan page---------------------------------------------------------------*/
    const redirectToLoanForm=()=>{
       setUserVerify(false);
       setUserLoan(true);
    }
-   const redirectToEmployeeType=()=>{
+   /**-----------this below snipeet handle change colour and onClick of next button the form will appear as per user seleccted -------- */
+    const changeSalariedBg=()=>{
+    setSalaried(true);
+    setSelfEmployed(false);
+    setEmployeeForm("salaried");
+    }
+    const changeSelfEmployeeBg=()=>{
+     setSalaried(false);
+     setSelfEmployed(true);
+     setEmployeeForm("selfemployed");
+    }
+    const changeBankBg=()=>{
+       setBank(true);
+       setModeCash(false);
+       setTransfer("bank");
+    }
+    const changeCashBg=()=>{
+        setBank(false);
+        setModeCash(true);
+        setTransfer("cash");
+    }
+    const userSelected=()=>{
+    if(employeeForm==="salaried"){
+      //  console.log(employeeForm);
+       setUserEmployeeType(false);
+       setUserSalary(true);
+       setUserSelfEmployed(false);
+    }
+    if(employeeForm==="selfemployed"){
+      //  console.log(employeeForm);
+      setUserEmployeeType(false);
+      setUserSelfEmployed(true);
+      setUserSalary(false);
+    }
+    }
+    const redirectToEmployeeType=()=>{
      setUserLoan(false);
      setUserEmployeeType(true);
-   }
+    }
+
+   /**--function for Previous Button=> Loan Form,Salaried Form(employed type if selected),SelfEmployee form (if self employed selected)----------------------------------------------------- */
    const backtoLoan=()=>{
      setUserLoan(true);
      setUserEmployeeType(false);
@@ -75,7 +110,71 @@ const App = () => {
     setUserEmployeeType(true);
     setUserSalary(false);
    }
-   /**----------------------------------------------- */
+   const backfromSelfEmployType=()=>{
+    setUserEmployeeType(true);
+    setUserSelfEmployed(false);
+   }
+
+   //**----------------Personal Details Form------------------------------ */
+   const redirectToPersonalDetails=()=>{
+      if(employeeForm ==="selfemployed"){
+         setPersonalDetails(true);
+         setUserSelfEmployed(false);
+      }
+      if(employeeForm ==="salaried"){
+        setPersonalDetails(true);
+        setUserSalary(false);
+      }
+   }
+   const backToPreviousSelectedForm=()=>{
+    if(employeeForm ==="selfemployed"){
+      setPersonalDetails(false);
+      setUserSelfEmployed(true);
+      }
+     if(employeeForm ==="salaried"){
+    setPersonalDetails(false);
+    setUserSalary(true);
+      }
+    }
+    const changeGenderToMaleBg=()=>{
+        setMale(true);
+        setFemale(false);
+        setGender("Male");
+    }
+    const changeGenderToFemaleBg =()=>{
+            setFemale(true);
+            setMale(false);
+            setGender("Female");
+    }
+   /**---------------Address Details Form-------------------------------- */
+    const redirectToAddressForm=()=>{
+         setUserAddress(true);
+         setPersonalDetails(false);
+    }
+    const backToPersonalDetails=()=>{
+       setUserAddress(false);
+       setPersonalDetails(true);
+    }
+    /**-----------------Other Details Form------------------------------ */
+    const redirectToOtherDetailsForm=()=>{
+        setOtherDetails(true);
+        setUserAddress(false);
+    }
+    const backToAddressForm=()=>{
+      setOtherDetails(false);
+      setUserAddress(true);
+    }
+   /**---------------lOAN SECTION FUNCTION---------------------------------- */
+   const redirectToSubmitLoanSection=()=>{
+       setOtherDetails(false);
+       setSubmitLoan(true);
+   }
+   const backToSubmitLoan=()=>{
+    setOtherDetails(true);
+    setSubmitLoan(false);
+   }
+   /**-----------SALARIED FORM MODE OF SALARY FUNCTION--------------------------------------- */
+    
 
    return (
     <Fragment>
@@ -210,7 +309,7 @@ const App = () => {
                             <h6>Monthly Income</h6>
                             <input className='inputStyler' placeholder='Enter the Monthly Income'></input>
                          </div>
-                         <div className='selectBox'>
+                         {/* <div className='selectBox'>
                             <div className='userTransfer'>
                                  <div className='transferImg'>
                                     <img  src={bankTransfer} alt='img' />
@@ -223,6 +322,19 @@ const App = () => {
                                   </div>
                                   <h6>Cash</h6>
                             </div>
+                        </div> */}
+                        <div className='modeOfTransfer'>
+                        <div id='title'>Mode Of Salary *</div>
+                         <div className='modeWrapper'>
+                              <div className='modeBox' onClick={()=>changeBankBg()} style={bank?{backgroundColor:"#f7d64a",border:"none"}:{backgroundColor:"transparent",border:"2px solid #243771"}} >
+                                 <div   className='modeBoxImg'><img src={bankTransfer} alt="banktransfer" /></div>
+                                 <h6>Bank Trasnfer</h6>
+                              </div>
+                              <div className='modeBox' onClick={()=>changeCashBg()} style={modecash?{backgroundColor:"#f7d64a",border:"none"}:{backgroundColor:"transparent",border:"2px solid #243771"}}>
+                                 <div  className='modeBoxImg'><img src={cash} alt="cash"/></div>
+                                 <h6>Cash</h6>
+                              </div>
+                         </div>
                         </div>
                         <div className='formContent'>
                             <h6>Name of Bank Account</h6>
@@ -237,7 +349,7 @@ const App = () => {
                  <button onClick={()=>backtoEmployType()} className='mainButton2'>
                   <BsArrowLeft/> Previous 
                   </button>
-                <button  className='mainButton'>
+                <button onClick={()=>redirectToPersonalDetails()}  className='mainButton'>
                   Next <BsArrowRight/>
                   </button>
                 </div>
@@ -284,14 +396,212 @@ const App = () => {
                               <option>AeroSpace Flims</option>
                             </select>
                       </div>
+                      <div className='formContent'>
+                            <h6>Company Name</h6>
+                            <input className='inputStyler' placeholder='Enter the Company Name'></input>
+                      </div>
+                      <div className='formContent'>
+                            <h6>Company Address</h6>
+                            <input className='inputStyler' placeholder='Enter the Company Pincode'></input>
+                            <input className='inputStyler' placeholder='City'></input>
+                            <input className='inputStyler' placeholder='State'></input>
+                            <input className='inputStyler' placeholder='Country'></input>
+                      </div>
+                      <div className='formContent'>
+                            <h6>Designation</h6>
+                            <input className='inputStyler' placeholder='Enter Your Designation'></input>
+                      </div>
+                      <div className='formContent'>
+                            <h6>Monthly Profit</h6>
+                            <input className='inputStyler' placeholder='Enter Your Monthly Profit'></input>
+                      </div>
+                      <div className='formContent'>
+                            <h6>Business/Current Account Is With? *</h6>
+                            <select className='inputStyler'>
+                              <option>A B BANK LTD</option>
+                              <option>State Bank of India</option>
+                              <option>ICICI Bank</option>
+                              <option>Assam Gramin Vikash Bank</option>
+                            </select>
+                      </div>
+                      <div className='formContent'>
+                            <h6>Primary/Savings Bank Account Is With? *</h6>
+                            <select className='inputStyler'>
+                              <option>A B BANK LTD</option>
+                              <option>State Bank of India</option>
+                              <option>ICICI Bank</option>
+                              <option>Assam Gramin Vikash Bank</option>
+                            </select>
+                      </div>
                 </div>
                  <div className='buttonWrapper2'>
-                 <button className='mainButton2'>
+                 <button onClick={()=>backfromSelfEmployType()}className='mainButton2'>
                   <BsArrowLeft/> Previous 
                   </button>
-                <button  className='mainButton'>
+                <button onClick={()=>redirectToPersonalDetails()} className='mainButton'>
                   Next <BsArrowRight/>
                   </button>
+                </div>
+                </Col>
+             :""}
+             {personalDetails ?
+                 <Col style={ColStyler}  lg={6}>
+                 <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Personal Details</h1>
+                 <div className='formWrapper'>
+                     <div className='formContent'>
+                            <h6>First Name (As per PAN card) *</h6>
+                            <input className='inputStyler' placeholder=' Enter the First Name'></input>
+                      </div>
+                      <div className='formContent'>
+                            <h6>Last Name (As per PAN card) *</h6>
+                            <input className='inputStyler' placeholder=' Enter the Last Name'></input>
+                      </div>
+                      <div className='formContent'>
+                      <h6>DOB</h6>
+                      <input type="date" className="inputStyler"   id="dob" name="dob" value={selectedDate} onChange={setSelectedDate} placeholder="dd/mm/yyyy" />
+                      </div>
+                      <div className='formContent'>
+                            <h6>Gender *</h6>
+                            <select className='inputStyler'>
+                              <option>Male</option>
+                              <option>Female</option>
+                              <option>TransGender</option>
+                            </select>
+                      </div>
+                      <div className='martialStatus'>
+                         <div id='title'>Martial Status*</div>
+                         <div className='martialStatusWrapper'>
+                             <div className='martialStatusBox' onClick={()=>changeGenderToMaleBg()} style={male?{backgroundColor:"#f7d64a",border:"none"}:{backgroundColor:"transparent",border:"2px solid #243771"}} >
+                                 <div className='martialImg'>
+                                      <img src={man} alt="man" />
+                                 </div>
+                                  <h6>Single</h6>
+                             </div>
+                             <div className='martialStatusBox' onClick={()=>changeGenderToFemaleBg()} style={female?{backgroundColor:"#f7d64a",border:"none"}:{backgroundColor:"transparent",border:"2px solid #243771"}} >
+                             <div className='martialImg'>
+                                      <img src={couple} alt="couple"/>
+                                 </div>
+                                  <h6>Married</h6>
+                             </div>
+                         </div>
+                        
+                      </div>
+                      <div className='formContent'>
+                            <h6>Qualification *</h6>
+                            <select className='inputStyler'>
+                              <option>Under Gratuate</option>
+                              <option>Graduate</option>
+                              <option> Post Graduate</option>
+                            </select>
+                      </div>
+                 </div>
+                 <div className='buttonWrapper2'>
+                 <button onClick={()=>backToPreviousSelectedForm()} className='mainButton2'>
+                  <BsArrowLeft/> Previous 
+                  </button>
+                   <button onClick={()=>redirectToAddressForm()}  className='mainButton'>
+                  Next <BsArrowRight/>
+                  </button>
+                  </div>
+                 </Col>
+             :""}
+             {userAddress ?
+                <Col style={ColStyler}  lg={6}>
+                <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Address Details</h1>
+                <div className='formWrapper'>
+                       <div className='formContent'>
+                            <h6>Address Line 1 (Flat/Block) *</h6>
+                            <input className='inputStyler' placeholder=' Enter the Address'></input>
+                      </div>
+                      <div className='formContent'>
+                            <h6>Landmark (Area/Locality) *</h6>
+                            <input className='inputStyler' placeholder=' Enter the LandMark'></input>
+                      </div>
+                      <div className='formContent'>
+                            <h6>Pincode *</h6>
+                            <input className='inputStyler' placeholder='Pincode'></input>
+                      </div>
+                      <div className='formContent'>
+                            <h6>City *</h6>
+                            <input className='inputStyler' placeholder='City'></input>
+                      </div>
+                      <div className='formContent'>
+                            <h6>State *</h6>
+                            <input className='inputStyler' placeholder='Country'></input>
+                      </div>
+                      <div className='formContent'>
+                            <h6>Resident Type *</h6>
+                            <select className='inputStyler'>
+                              <option>Self-Owned</option>
+                              <option>Owned By Parents</option>
+                              <option>Owned By Siblings</option>
+                              <option value="">Rented</option>
+                              <option value="">Company Provided</option>
+                            </select>
+                      </div>
+                      <div className='formContent'>
+                            <h6>How Many Years You Are Living in Current Address? *</h6>
+                            <select className='inputStyler'>
+                              <option>1 Year</option>
+                              <option>1-2 year</option>
+                              <option>2-3 year</option>
+                              <option value="">4-5 year</option>
+                              <option value="">5+ year</option>
+                            </select>
+                      </div>
+                </div>
+                <div className='buttonWrapper2'>
+                 <button onClick={()=>backToPersonalDetails()} className='mainButton2'>
+                  <BsArrowLeft/> Previous 
+                  </button>
+                   <button onClick={()=>redirectToOtherDetailsForm()}  className='mainButton'>
+                  Next <BsArrowRight/>
+                  </button>
+                </div>
+                </Col>
+             :""}
+             {otherDetils ?
+               <Col style={ColStyler}  lg={5}>
+               <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Other Details</h1>
+               <div className='formWrapper'>
+                   <div className='formContent'>
+                       <h6>Total EMI Pay currently Per Month: *</h6>
+                        <input className='inputStyler' placeholder='Total EMI Pay currently Per Month'></input>
+                   </div>
+                   <div className='formContent'>
+                            <h6>Are you interested in getting any credit card? *</h6>
+                            <select className='inputStyler'>
+                              <option>Yes</option>
+                              <option>No</option>
+                            </select>
+                  </div>
+               </div>
+               <div className='buttonWrapper2'>
+                 <button onClick={()=>backToAddressForm()} className='mainButton2'>
+                  <BsArrowLeft/> Previous 
+                  </button>
+                   <button onClick={()=>redirectToSubmitLoanSection()}  className='mainButton'>
+                  Next <BsArrowRight/>
+                  </button>
+                </div>
+               </Col>
+             :""}
+             {submitLoan ?
+               <Col style={ColStyler}  lg={5}>
+               <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771",width:"100%",paddingLeft:"10px"}} >Submit Loan Request</h1>
+               <div className='formWrapper'>
+               <div className="form-check">
+                  <input className="form-check-input" style={{backgroundColor:"#243771"}} type="checkbox" value="" id="flexCheckDefault"/>
+                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                    I hereby declare that I have read, understood and agree to the Terms & Conditions and the Privacy Policy of this platform. I allow Credmudra, its Lending Partners and subsidiaries to contact me via phone,email or any other mode of communication for loan, credit card or any other related matters, Information or promotions.
+                    </label>
+                </div>
+               </div>
+               <div className='buttonWrapper2'>
+                 <button onClick={()=>backToSubmitLoan()} className='mainButton2'>
+                  <BsArrowLeft/> Previous 
+                  </button>
+                   <button  className='mainButton'>Submit</button>
                 </div>
                </Col>
              :""}

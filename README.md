@@ -10,7 +10,10 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
+/**------------------------------------
+data-date-format="mm/dd/yyyy" data-parsley-trigger="keyup" data-parsley-minimumage="18" 
+data-parsley-minimumage-message="Applicant must be at least 18 years of age to apply" required="" data-parsley-required-message="Dob is required" data-parsley-errors-container="dob_error_container" data-parsley-group="block-8"
+/**--------------------------------------
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
