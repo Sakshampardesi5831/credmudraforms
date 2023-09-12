@@ -1,8 +1,9 @@
-import React, { Fragment,useState } from 'react'
+import React, { Fragment,useEffect,useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import {BsArrowRight,BsArrowLeft} from 'react-icons/bs'
 import {salariedIMG,selfEmployeedIMG,bankTransfer,cash,man,couple} from '../src/assets/index'
 import {MDBInputSelect} from 'mdbreact'
+import axios from 'axios'
 const ContainerStyler={
   minHeight:"100vh",
   border:"2px solid red",
@@ -16,8 +17,9 @@ const ColStyler={
   justifyContent:"center",
   gap:"10px",
   padding:"10px 15px"
-
 }
+
+
 
 const App = () => {
   /**---------------ALL FORMS USESTATE FOR SHOW AND HIDE-------------------------------------------------------------- */
