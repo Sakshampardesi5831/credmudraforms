@@ -6,7 +6,7 @@ import {MDBInputSelect} from 'mdbreact'
 import axios from 'axios'
 const ContainerStyler={
   minHeight:"100vh",
-  border:"2px solid red",
+  // border:"2px solid red",
   padding:"20px 0px"
 }
 const ColStyler={
@@ -68,10 +68,10 @@ const App = () => {
   /**----------------------------------------------------------------------------------------------------------------------- */
    return (
     <Fragment>
-      <Container style={ContainerStyler}>
-         <Row  style={{display:"flex",justifyContent:"center",alignItems:"center",minHeight:"100vh"}} >
+      <div className='container'  style={ContainerStyler}>
+         <div  className='row' style={{display:"flex",justifyContent:"center",alignItems:"center",minHeight:"100vh"}} >
                 {formSteps === "initial" && (
-                  <Col style={ColStyler}  lg={5}>
+                  <div style={ColStyler} className='col-lg-5 col-md-11 col-sm-11'>
                   <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Welcome to CredMudra</h1>
                     <div className='formWrapper'>
                       <h6>Enter your 10 digit mobile number to proceed: *</h6>
@@ -80,10 +80,16 @@ const App = () => {
                       <button onClick={()=>setformSteps("verify")}className='mainButton'>
                        Next <BsArrowRight/>
                       </button>
-                  </Col>
+                      <div className="form-check">
+                        <input className="form-check-input" style={{backgroundColor:"#243771"}} type="checkbox" value="" id="flexCheckDefault"/>
+                       <label className="form-check-label" htmlFor="flexCheckDefault">
+                             By continuing, I agree to Credmudra's Privacy Policy and Terms & Conditions and receive communication from Credmudra via SMS, E-mail, and WhatsApp.
+                       </label>
+                 </div>
+                  </div>
                 )}
                 {formSteps ==="verify" && (
-                  <Col style={ColStyler}  lg={5}>
+                  <div className='col-lg-5 col-md-11 col-sm-11 col-xs-11' style={ColStyler}>
                 <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Verify Mobile</h1>
                 <div className='formWrapper'>
                     <h6>Enter the Otp Receive on Mobile</h6>
@@ -92,10 +98,10 @@ const App = () => {
                 <button onClick={()=> setformSteps("loan")}className='mainButton'>
                   Next <BsArrowRight/>
                 </button>
-                 </Col>
+                 </div>
                 )}
                 {formSteps ==="loan" && (
-                  <Col style={ColStyler}  lg={5}>
+                  <div className='col-lg-5 col-md-11 col-sm-11 col-xs-11' style={ColStyler}  lg={5}>
                   <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Loan Details</h1>
                   <div className='formWrapper'>
                        <div className='contentWrapper'>
@@ -120,10 +126,10 @@ const App = () => {
                     Next <BsArrowRight/>
                     </button>
                   </div>
-                 </Col>
+                 </div>
                 )}
                 {formSteps === "employeType" && (
-                 <Col style={ColStyler}  lg={5}>
+                 <div className='col-lg-5 col-md-11 col-sm-11 col-xs-11' style={ColStyler}  lg={5}>
                  <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Select Employee Type</h1>
                  <div className='formWrapper'>
                       <h5  style={{fontSize:"20px"}} >Your Profession</h5>
@@ -150,10 +156,10 @@ const App = () => {
                    Next <BsArrowRight/>
                    </button>
                  </div>
-                </Col>
+                </div>
                 )}
                 {formSteps ==="salaried" && (
-                 <Col style={ColStyler}  lg={6}>
+                 <div className='col-lg-5 col-md-11 col-sm-11 col-xs-11' style={ColStyler}  lg={6}>
                  <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Employment Details</h1>
                  <div className='formWrapper'>
                       <h5  style={{fontSize:"20px",color:"green"}}>Salaried Employee</h5>
@@ -229,10 +235,10 @@ const App = () => {
                    Next <BsArrowRight/>
                    </button>
                  </div>
-                </Col>
+                </div>
                 )}
                 {formSteps ==="selfEmployed" && (
-                <Col style={ColStyler}  lg={6}>
+                <div className='col-lg-6 col-md-11 col-sm-11 col-xs-11' style={ColStyler}>
                 <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Fill SelfEmployed Details</h1>
                 <div className='formWrapper'>
                      <h5  style={{fontSize:"20px",color:"green"}} >Businness</h5>
@@ -318,10 +324,10 @@ const App = () => {
                   Next <BsArrowRight/>
                   </button>
                 </div>
-                </Col>
+                </div>
                 )}
                 {formSteps ==="personalDetails" && (
-                <Col style={ColStyler}  lg={6}>
+                <div className='col-lg-5 col-md-11 col-sm-11 col-xs-11' style={ColStyler}>
                 <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Personal Details</h1>
                 <div className='formWrapper'>
                     <div className='formContent'>
@@ -379,10 +385,10 @@ const App = () => {
                  Next <BsArrowRight/>
                  </button>
                  </div>
-                </Col>
+                </div>
                 )}
                 {formSteps ==="address" && (
-                   <Col style={ColStyler}  lg={6}>
+                   <div className='col-lg-6 col-md-11 col-sm-11 col-xs-11' style={ColStyler}>
                    <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Address Details</h1>
                    <div className='formWrapper'>
                           <div className='formContent'>
@@ -434,10 +440,10 @@ const App = () => {
                      Next <BsArrowRight/>
                      </button>
                    </div>
-                   </Col>
+                   </div>
                 )}
                 {formSteps ==="otherdetails" && (
-                 <Col style={ColStyler}  lg={5}>
+                 <div style={ColStyler}  className='col-lg-5 col-md-11 col-sm-11 col-xs-11'>
                  <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771"}} >Other Details</h1>
                  <div className='formWrapper'>
                      <div className='formContent'>
@@ -460,10 +466,10 @@ const App = () => {
                     Next <BsArrowRight/>
                     </button>
                   </div>
-                 </Col>
+                 </div>
                 )}
                 {formSteps ==="submitLoan" && (
-                  <Col style={ColStyler}  lg={5}>
+                  <div style={ColStyler}  className='col-lg-5 col-md-11 col-sm-11 col-xs-11'>
                 <h1  style={{fontSize:"40px",fontWeight:"800",color:"#243771",width:"100%",paddingLeft:"10px"}} >Submit Loan Request</h1>
                 <div className='formWrapper'>
                 <div className="form-check">
@@ -479,10 +485,10 @@ const App = () => {
                    </button>
                     <button  className='mainButton'>Submit</button>
                  </div>
-                  </Col>
+                  </div>
                 )}
-         </Row>
-      </Container>
+         </div>
+      </div >
     </Fragment>
   )
 }
